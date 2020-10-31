@@ -1,1 +1,2 @@
-# C-library
+# C++ library
+C++のライブラリです。
