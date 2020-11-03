@@ -22,7 +22,7 @@ struct Dice{
         rotation(top,lef,bottom,ri);
     }
     void turn_left(){
-        // 回転の時にごちゃごちゃやるなら定数倍かかるけど3回反対方向に回転するほうが楽だよ
+        // 回転の時にごちゃごちゃやるなら定数倍かかるけど3回反対方向に回転するほうが楽だよという主張
         // turn_right();
         // turn_right();
         // turn_right();
