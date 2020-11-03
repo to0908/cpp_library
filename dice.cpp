@@ -1,17 +1,11 @@
-#include<bits/stdc++.h> 
-using namespace std;
-typedef long long ll;
-#define endl '\n'
-#define all(x) (x).begin(),(x).end()
-template<typename T1,typename T2> bool chmin(T1 &a,T2 back){if(a<=back)return 0; a=back; return 1;}
-template<typename T1,typename T2> bool chmax(T1 &a,T2 back){if(a>=back)return 0; a=back; return 1;}
-int dx[4]={0,1,0,-1}, dy[4]={1,0,-1,0};
-
-
+// verify
+// https://onlinejudge.u-aizu.ac.jp/solutions/problem/ITP1_11_D/review/4956407/totori0908/C++17
+// https://onlinejudge.u-aizu.ac.jp/solutions/problem/3206/review/4965625/totori0908/C++17
 template<typename T>
-struct dice{
+struct Dice{
     T top,bottom,lef,ri,front,back;
-    dice(vector<T> v){
+    T base = -1;
+    Dice(vector<T> v){
         assert(v.size() == 6);
         top = v[0];
         front = v[1];
@@ -28,17 +22,25 @@ struct dice{
         rotation(top,lef,bottom,ri);
     }
     void turn_left(){
+        // 回転の時にごちゃごちゃやるなら定数倍かかるけど3回反対方向に回転するほうが楽だよ
+        // turn_right();
+        // turn_right();
+        // turn_right();
         rotation(top,ri,bottom,lef);
-    }
-    void turn_front(){
-        rotation(top,back,bottom,front);
     }
     void turn_back(){
         rotation(top,front,bottom,back);
     }
+    void turn_front(){
+        // turn_back();
+        // turn_back();
+        // turn_back();
+        rotation(top,back,bottom,front);
+    }
+
 
     // 向きと目が全て同じかどうか
-    bool operator==(const dice& d) const{
+    bool operator==(const Dice& d) const{
         if(d.back != back)return false;
         if(d.front != front)return false;
         if(d.bottom != bottom)return false;
@@ -49,7 +51,7 @@ struct dice{
     }
 
     // 回転も考慮して同型判定
-    bool same(dice d){
+    bool same(Dice d){
         for(int i=0;i<2;i++){
             for(int j=0;j<4;j++){
                 this->turn_front();
@@ -63,28 +65,37 @@ struct dice{
         }
         return false;
     }
-};
 
-
-
-signed main(){
-    ios::sync_with_stdio(false);
-    cin.tie(0);
-    cout << fixed << setprecision(20);
-
-    int n;
-    cin>>n;
-    vector<dice<int>> d;
-    for(int i=0;i<n;i++){
-        vector<int> v(6);
-        for(int j=0;j<6;j++)cin>>v[j];
-        d.push_back(dice<int>(v));
-    }
-    for(int i=0;i<n;i++)for(int j=i+1;j<n;j++){
-        if(d[i].same(d[j])){
-            cout << "No\n";
-            return 0;
+    // 全ての向きを考慮して、最大何個一致しているか
+    int count_same(Dice d){
+        int ret = 0;
+        for(int i=0;i<4;i++){
+            for(int j=0;j<4;j++){
+                this->turn_front();
+                for(int k=0;k<4;k++){
+                    int cnt = 6;
+                    this->turn_left();
+                    if (d.back != this->back)cnt--;
+                    if(d.front != this->front)cnt--;
+                    if(d.bottom != this->bottom)cnt--;
+                    if(d.top != this->top)cnt--;
+                    if(d.lef != this->lef)cnt--;
+                    if(d.ri != this->ri)cnt--;
+                    chmax(ret,cnt);
+                }
+            }
+            this->turn_left();
         }
+        return ret;
     }
-    cout << "Yes\n";
-}
+
+    // debug
+    void print(){
+        cerr << "bottom: " << bottom << endl;
+        cerr << "front: " << front << endl;
+        cerr << "top: " << top << endl;
+        cerr << "back: " << back << endl;
+        cerr << "left: " << lef << endl;
+        cerr << "right: " << ri << endl; 
+    }
+};
