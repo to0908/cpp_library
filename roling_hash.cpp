@@ -1,6 +1,6 @@
 const vector<ll> mul = {1007,1009,1013,1001};
 const vector<ll> mod = {1000000007,1000000023,1000000087,1000000093};
-vector<vector<ll>> roling_hash(string s,int sz = 2){
+vector<vector<ll>> roling_hash(string s,int sz = 4){
 	int n = s.size();
 	vector<vector<ll>> hash(sz,vector<ll>(n+1));
 	assert((int)mul.size() >= sz);
