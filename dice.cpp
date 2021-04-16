@@ -3,7 +3,6 @@
 template<typename T>
 struct Dice{
 	T top,bottom,lef,ri,front,back;
-	T base = -1;
 	Dice(vector<T> v){
 		assert(v.size() == 6);
 		top = v[0];
