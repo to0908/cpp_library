@@ -33,7 +33,6 @@ struct Dice{
 		rotation(top,back,bottom,front);
 	}
 
-
 	// 向きと目が全て同じかどうか
 	bool operator==(const Dice& d) const{
 		if(d.back != back)return false;
