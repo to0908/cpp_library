@@ -14,6 +14,7 @@ pair<vector<int>,int> Weighted_Tree_Diameter(const vector<vector<Edge>> &v){
     int p = dfs(0,-1).second;
     auto [dist,q] = dfs(p,-1);
     function<vector<int>(int,int,int)> dia = [&](int p, int pre, int goal){
+        if(p == goal)return vector<int>{goal};
         vector<int> ret;
         for(auto i:v[p]){
             if(i[0] == pre)continue;
@@ -44,6 +45,7 @@ vector<int> Unweighted_Tree_Diameter(const vector<vector<int>> &v){
     int p = dfs(0,-1).second;
     int q = dfs(p,-1).second;
     function<vector<int>(int,int,int)> dia = [&](int p, int pre, int goal){
+        if(p == goal)return vector<int>{goal};
         vector<int> ret;
         for(auto i:v[p]){
             if(i == pre)continue;
