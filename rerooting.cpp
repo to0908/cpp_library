@@ -9,7 +9,7 @@ struct ReRooting{
 
     ReRooting(int n) : v(n), dp(n), ans(n) {};
 
-    void add_edge(int &a, int &b, auto &c){
+    void add_edge(int &a, int &b, auto c){
         v[a].push_back({b,c});
         v[b].push_back({a,c});
     }
@@ -40,7 +40,7 @@ struct ReRooting{
         }
 
         int n = dp[p].size();
-        vector<T> ldp(n+1), rdp(n+1);
+        vector<T> ldp(n+1, ident), rdp(n+1, ident);
         for(int i=0;i<n;i++){
             ldp[i+1] = g(ldp[i+1], dp[p][i]);
             ldp[i+1] = g(ldp[i+1], ldp[i]);
@@ -62,21 +62,22 @@ struct ReRooting{
     }
 
     void solve(){
+        dfs();
         solve(0, -1, ident);
     }
 
 private:
     // ここは問題固有
     
-    T ident = 0;
+    T ident = {1, 0};
 
     // 辺情報の処理
-    T f(T a, auto c){
-        return a + c;
+    T f(T a, ll c){
+        return a+c;
     }
 
     // 答えのマージ
     T g(T a, T b){
-        return max(a,b);
+        return a+b;
     }
 };
