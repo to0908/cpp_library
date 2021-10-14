@@ -9,7 +9,7 @@ struct ReRooting{
 
     ReRooting(int n) : v(n), dp(n), ans(n) {};
 
-    void add_edge(int &a, int &b, ll &c){
+    void add_edge(int &a, int &b, auto &c){
         v[a].push_back({b,c});
         v[b].push_back({a,c});
     }
@@ -71,7 +71,7 @@ private:
     T ident = 0;
 
     // 辺情報の処理
-    T f(T a, ll c){
+    T f(T a, auto c){
         return a + c;
     }
 
