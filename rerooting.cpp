@@ -1,4 +1,4 @@
-template<typename T, typename Vertex>
+template<typename T=ll, typename Vertex=ll>
 struct ReRooting{
 
     vector<vector<array<ll,2>>> v;
@@ -73,8 +73,13 @@ struct ReRooting{
         ans[p] = g(npar, ldp[n]);
     }
 
-    void solve(bool weighted=false){
+    void solve(bool weighted=false, bool vertex=false){
         read(weighted);
+        if(vertex){
+            vertex_info = true;
+            d.resize(v.size());
+            cin>>d;
+        }
         dfs();
         solve(0, -1, ident);
     }
@@ -83,14 +88,14 @@ private:
     // ここは問題固有
     
     T ident = 0;
-
+ 
     // 辺情報の処理
     T f(T a, ll c){
-        return a+c;
+        return a + c;
     }
-
+ 
     // 答えのマージ
     T g(T a, T b){
-        return a+b;
+        return max(a,b);
     }
 };
