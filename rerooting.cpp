@@ -10,9 +10,21 @@ struct ReRooting{
     ReRooting(int n) : v(n), dp(n), ans(n) {};
 
     void add_edge(int &a, int &b, auto c){
-        v[a].push_back({b,c});
-        v[b].push_back({a,c});
+        v[a].push_back({b, c});
+        v[b].push_back({a, c});
     }
+
+    void read(bool weighted=false){
+        for(int i=1;i<(int)v.size();i++){
+            int a,b;
+            ll c=1;
+            cin>>a>>b;
+            if(weighted) cin>>c;
+            a--,b--;
+            add_edge(a, b, c);
+        }
+    }
+
     void set_vertex(vector<Vertex> &x){
         vertex_info = true;
         d = x;
@@ -61,7 +73,8 @@ struct ReRooting{
         ans[p] = g(npar, ldp[n]);
     }
 
-    void solve(){
+    void solve(bool weighted=false){
+        read(weighted);
         dfs();
         solve(0, -1, ident);
     }
@@ -69,7 +82,7 @@ struct ReRooting{
 private:
     // ここは問題固有
     
-    T ident = {1, 0};
+    T ident = 0;
 
     // 辺情報の処理
     T f(T a, ll c){
