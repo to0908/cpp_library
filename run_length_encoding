@@ -1,0 +1,29 @@
+vector<array<int,2>> run_length_encoding(string &s){
+    int n = s.size();
+    int now = 1;
+    vector<array<int,2>> ret;
+    for(int i=1;i<n;i++){
+        if(s[i] == s[i-1])now++;
+        else {
+            ret.push_back({s[i-1], now});
+            now = 1;
+        }
+    }
+    ret.push_back({s[n-1], now});
+    return ret;
+}
+
+vector<array<int,2>> run_length_encoding(vector<int> &s){
+    int n = s.size();
+    int now = 1;
+    vector<array<int,2>> ret;
+    for(int i=1;i<n;i++){
+        if(s[i] == s[i-1])now++;
+        else {
+            ret.push_back({s[i-1], now});
+            now = 1;
+        }
+    }
+    ret.push_back({s[n-1], now});
+    return ret;
+}
